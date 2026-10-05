@@ -1,0 +1,3 @@
+/target
+# Machine-specific config never belongs in the repo.
+cc-hooks.toml

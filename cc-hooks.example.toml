@@ -1,0 +1,25 @@
+# Copy to %USERPROFILE%\.claude\cc-hooks.toml (or point CC_HOOKS_CONFIG at it) and fill in.
+# A hook whose section is missing does nothing.
+
+# git-identity: deny commits/pushes from a personal repo while git's user.email is a work address.
+[git_identity]
+# Folders that hold work repos. A repo with no origin outside these counts as personal.
+work_roots = ["X:/work"]
+# Case-insensitive substrings of origin URLs that mark a repo as personal.
+personal_remote_patterns = ["github.com/your-user/", "github.com:your-user/"]
+# Case-insensitive substrings of e-mails that must never sign personal commits.
+work_email_patterns = ["@work.example"]
+# Suggested in the deny message.
+personal_email = "your-id+your-user@users.noreply.github.com"
+
+# quality-gate: the PowerShell scripts that run only when a command creates a PR.
+[quality_gate]
+pre_script = "C:/path/to/quality-gate.ps1"
+post_script = "C:/path/to/quality-gate-post-pr.ps1"
+
+# context-inject: SessionStart context for sessions under a folder. Repeat the block per rule.
+# %NAME% in `file` is expanded from the environment.
+[[context_inject]]
+cwd_prefix = "X:/work"
+file = '%USERPROFILE%\.claude\work-context.md'
+header = "The working directory is inside X:\\work, so these instructions apply to this session:\n\n"
